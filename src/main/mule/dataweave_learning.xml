@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1235f348-2102-490d-a67e-8f7cac73b474" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
+	<flow name="dataweave_learningFlow" doc:id="0809c7d5-1290-4e54-95aa-72053323884f" >
+		<http:listener doc:name="Listener" doc:id="ce667ffe-1529-4c90-a9ea-231cc31a17b2" config-ref="HTTP_Listener_config" path="/api/xmlToJson"/>
+		<logger level="INFO" doc:name="Logger" doc:id="da106b3b-9f7f-4705-ae4d-0c56e3730338" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="823efb03-5615-40e5-9c21-7ac2634b5534" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave_learningFlow1" doc:id="00d8dfa0-13a7-4d22-b646-692e5d68a45d" >
+		<http:listener doc:name="Listener" doc:id="3155bb07-60c8-4dcf-a89b-27837b9f376d" config-ref="HTTP_Listener_config" path="/api/JsonToXML"/>
+		<logger level="INFO" doc:name="Logger" doc:id="bdc4a9e4-52c3-49fc-9133-57c2cdae737f" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="37661f2b-5967-4690-ad75-d2da2c881a61" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	WeatherDetails: payload.WeatherDetails
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
