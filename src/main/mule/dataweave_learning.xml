@@ -34,4 +34,15 @@ output application/xml
 			</ee:message>
 		</ee:transform>
 	</flow>
+	<flow name="dataweave_learningFlow2" doc:id="3707a535-53d6-4389-918e-0aa7a6aef014" >
+		<http:listener doc:name="Listener" doc:id="21d84843-bb70-4a09-81cc-83cbf97d2ade" config-ref="HTTP_Listener_config" path="/api/JsonToCsv" outputMimeType='application/csv; separator=","'/>
+		<ee:transform doc:name="Transform Message" doc:id="627b6a03-a9b7-424d-b819-86d93558ef34" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
 </mule>
