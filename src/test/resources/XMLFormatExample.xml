@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore
+	xmlns="https://developers.google.com/books"
+	xmlns:auth="https://developers.google.com/books"
+	xmlns:pu="https://developers.google.com/books">
+	<name>NetBook BookStore</name>
+	<book category="cooking">
+		<title lang="en">Everyday Italian</title>
+		<auth:author>
+			<firstName>Giada De</firstName>
+			<lastName>Laurentiis</lastName>
+		</auth:author>
+		<pu:publisher>
+			<name>SRS Publications</name>
+		</pu:publisher>
+		<year>2005</year>
+		<price>30.00</price>
+	</book>
+	<book category="children">
+		<title lang="en">Harry Potter</title>
+		<auth:author>
+			<firstName>J K</firstName>
+			<lastName>Rowling</lastName>
+		</auth:author>
+		<pu:publisher>
+			<name>Mathew Publications</name>
+		</pu:publisher>
+		<year>2005</year>
+		<price>29.99</price>
+	</book>
+	<book category="web">
+		<title lang="en">XQuery Kick Start</title>
+		<auth:author>
+			<firstName>James</firstName>
+			<lastName>McGovern</lastName>
+		</auth:author>
+		<auth:author>
+			<firstName>Per</firstName>
+			<lastName>Bothner</lastName>
+		</auth:author>
+		<auth:author>
+			<firstName>Kurt</firstName>
+			<lastName>Cagle</lastName>
+		</auth:author>
+		<auth:author>
+			<firstName>James</firstName>
+			<lastName>Linn</lastName>
+		</auth:author>
+		<auth:author>
+			<firstName>Vaidyanathan</firstName>
+			<lastName>Nagarajan</lastName>
+		</auth:author>
+		<pu:publisher>
+			<name>CRM Publications</name>
+		</pu:publisher>
+		<year>2003</year>
+		<price>49.99</price>
+	</book>
+	<book category="web" cover="paperback">
+		<title lang="en">Learning XML</title>
+		<auth:author>
+			<firstName>Erik</firstName>
+			<lastName>T. Ray</lastName>
+		</auth:author>
+		<pu:publisher>
+			<name>SRS Publications</name>
+			<sub-publisher>
+				<name>RV Publications</name>
+			</sub-publisher>
+		</pu:publisher>
+		<year>2003</year>
+		<price>39.95</price>
+	</book>
+</bookstore>
+

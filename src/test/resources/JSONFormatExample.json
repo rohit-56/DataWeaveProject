@@ -1,0 +1,72 @@
+{
+    "bookstore": {
+        "name": "NetBook BookStore",
+        "book": {
+            "title": "Everyday Italian",
+            "author": {
+                "firstName": "Giada De",
+                "lastName": "Laurentiis"
+            },
+            "publisher": {
+                "name": "SRS Publications"
+            },
+            "year": "2005",
+            "price": "30.00"
+        },
+        "book": {
+            "title": "Harry Potter",
+            "author": {
+                "firstName": "J K",
+                "lastName": "Rowling"
+            },
+            "publisher": {
+                "name": "Mathew Publications"
+            },
+            "year": "2005",
+            "price": "29.99"
+        },
+        "book": {
+            "title": "XQuery Kick Start",
+            "author": {
+                "firstName": "James",
+                "lastName": "McGovern"
+            },
+            "author": {
+                "firstName": "Per",
+                "lastName": "Bothner"
+            },
+            "author": {
+                "firstName": "Kurt",
+                "lastName": "Cagle"
+            },
+            "author": {
+                "firstName": "James",
+                "lastName": "Linn"
+            },
+            "author": {
+                "firstName": "Vaidyanathan",
+                "lastName": "Nagarajan"
+            },
+            "publisher": {
+                "name": "CRM Publications"
+            },
+            "year": "2003",
+            "price": "49.99"
+        },
+        "book": {
+            "title": "Learning XML",
+            "author": {
+                "firstName": "Erik",
+                "lastName": "T. Ray"
+            },
+            "publisher": {
+                "name": "SRS Publications",
+                "sub-publisher": {
+                    "name": "RV Publications"
+                }
+            },
+            "year": "2003",
+            "price": "39.95"
+        }
+    }
+}
