@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="XmlToSelectedJSONFlow" doc:id="851558d6-902e-4d6c-9931-2e92c1540784" >
+		<http:listener doc:name="Listener" doc:id="3e5dd4b6-622a-466a-a8fc-27f9b0e8d334" config-ref="HTTP_Listener_config" path="/api/XmlToJsonUsingSelectors"/>
+		<logger level="INFO" doc:name="Logger" doc:id="d8b9595e-ba9a-4ca8-9b3e-054c6ccb07de" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="52c34f92-0937-4ca9-9b18-66eb52458ef9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	// Single value selector
+	bookName: payload.bookstore.name,
+	
+	//Multi value selector
+	allBooks: payload.bookstore.*book.title,
+	
+	//Descendants
+	publishers: payload.bookstore.*book.publisher..name,
+	
+	//Key-Value pair (.&)
+	authors: payload.bookstore.*book.&author,
+	
+	//XML attribute
+	booksCategory: payload.bookstore.*book.@category,
+	
+	
+	//select index over an array
+	secondBook: payload.bookstore.*book[1],
+	
+	
+	//select index over an object
+	authorFirstNameinEachBook: payload.bookstore.*book.author[0],
+	
+	
+	//select index over a string
+	firstLetterofNameOfBookStore: payload.bookstore.name[0],
+	
+	
+	//select in a range
+	midleISBNNumber: payload.bookstore.*book[1].@ISBN[2 to 6],
+	
+	
+	//Name space selectors
+	nameSpaceOfAuthor: payload.bookstore.book.author.#,
+	
+	
+	//assert present validator (?)
+	CheckBookPricePresentOrNot: payload.bookstore.*book.price?,
+	
+	//filter selector
+	//getNameofTitleWhoseLangisEN: payload.bookstore.book.*title[?[$.@lang == 'en']],
+	
+	
+	//metadata selector
+	contentType: payload.^mimeType,
+	contentLength: payload.^contentLength,
+	encodedType: payload.^encoding
+	 
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
