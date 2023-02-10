@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataFlow_LearningFlow" doc:id="fc14cd7d-d477-4b62-af65-eaa189ffbca1" >
+		<http:listener doc:name="Listener" doc:id="faf5cc8f-f0aa-454c-9b8c-5853b74784bb" config-ref="HTTP_Listener_config" path="/api/dataFlow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="121d2ddf-04d5-4839-8176-899e56cbbd2b" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="7d27189a-67d2-4436-b9f7-888e957a4376" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var title = do {"mail-To :"}
+
+fun appendTitle(accountType) = do {
+	var title = "Account Type :"
+	---
+	title ++ accountType
+}
+
+---
+{
+	//First way of using do statement
+	name: do {'Mr.' ++ payload.name},
+	
+	//Second way of using do statement
+	email: title ++ payload.email,
+	
+	//Using do statement inside function
+	typeOf: appendTitle(payload.accountType),
+	
+	//using if statement
+	(getBalanceIfExist: payload.balance as Number) if(payload.balance != null),
+	
+	//using if-else statement
+	existOrNot: if(payload.status == 'Active') true else false,
+	
+	//using if-elseif-else statement
+	countryCode: if(payload.country == 'INDIA') 'IN'
+	              else if(payload.country == 'AMERICA') 'US'
+	              else 'EUR',
+	              
+	//Pattern matching value literals
+	codeofAccountType: payload.accountType match{
+		case 'Saving Account' -> 'SA'
+		case 'Current Account' -> 'CA'
+		case 'Salary Account' -> 'SRA'
+		else -> 'Invalid Input'
+	}
+	              
+	              
+	              
+	    
+	
+	
+	
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
